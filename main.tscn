@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=9 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://ck55wnayf5oar" path="res://assets/parallax/parallax_1.png" id="3_h2yge"]
 [ext_resource type="Shader" uid="uid://cf3eqce4gq3k3" path="res://pixelization.gdshader" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://do7c4mift3dv2" path="res://assets/parallax/parallax_2.png" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -14,23 +16,23 @@ size = Vector2(1280, 720)
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(13, 18)
+position = Vector2(197, 174)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Player"]
+visible = false
+z_index = 1500
+material = SubResource("ShaderMaterial_lquwl")
+position = Vector2(-13, -18)
+mesh = SubResource("QuadMesh_7mycd")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -7)
-offset = Vector2(-24.55, 10.67)
+offset = Vector2(-36.305, -23.83)
 zoom = Vector2(2.5, 2.5)
-limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Player/Camera2D"]
-z_index = 1500
-material = SubResource("ShaderMaterial_lquwl")
-position = Vector2(-13, -11)
-mesh = SubResource("QuadMesh_7mycd")
-
 [node name="skala" type="Node2D" parent="."]
+position = Vector2(115, 138)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
 
@@ -45,10 +47,37 @@ polygon = PackedVector2Array(-118, 96, -20, 89, 61, 63, 84, 62, 110, 45, 135, 50
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(462, 0)
+motion_scale = Vector2(0.5, 0.2)
+motion_mirroring = Vector2(548.75, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-6, 9)
-scale = Vector2(0.5, 0.5)
+z_index = -1
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_h2yge")
+centered = false
+region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2195, 941)
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.1)
+motion_mirroring = Vector2(548.75, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+z_index = -2
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_lquwl")
+centered = false
+region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2195, 941)
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(548.75, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+z_index = -3
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_7mycd")
+centered = false
+region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2195, 941)
