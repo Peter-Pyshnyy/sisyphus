@@ -52,12 +52,12 @@ position = Vector2(115, 138)
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="skala/StaticBody2D"]
-polygon = PackedVector2Array(-118, 96, -17, 91, 66, 64, 84, 62, 119, 47, 141, 50, 199, 19, 234, 22, 271, 16, 318, -11, 393, -5, 458, -11, 539, -77, 631, -126, 653, -144, 718, -169, 797, -183, 856, -207, 907, -268, 942, -292, 971, -304, 1007, -325, 1053, -337, 1137, -350, 1183, -390, 1229, -449, 1274, -484, 1332, -522, 1415, -547, 1513, -562, 1618, -610, 1681, -681, 1751, -698, 1815, -724, 1880, -799, 1946, -830, 1989, -838, 2076, -838, 2077, 95)
+visible = false
+polygon = PackedVector2Array(-118, 96, -17, 91, 66, 64, 84, 62, 119, 47, 141, 50, 199, 19, 234, 22, 271, 16, 318, -11, 393, -5, 458, -11, 539, -77, 631, -126, 653, -144, 718, -169, 797, -183, 870, -213, 917, -257, 938, -277, 975, -302, 1008, -325, 1046, -327, 1138, -349, 1183, -390, 1242, -442, 1284, -479, 1351, -507, 1417, -546, 1513, -562, 1619, -609, 1691, -675, 1753, -699, 1810, -721, 1904, -801, 1947, -830, 1990, -837, 2076, -838, 2077, 95)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.5, 0.2)
 motion_mirroring = Vector2(548.75, 0)
 
@@ -70,7 +70,6 @@ region_enabled = true
 region_rect = Rect2(-0.831, 0.385, 2195, 2000)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.3, 0.1)
 motion_mirroring = Vector2(548.75, 0)
 
@@ -83,7 +82,6 @@ region_enabled = true
 region_rect = Rect2(-0.831, 0.385, 2195, 941)
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(548.75, 0)
 
@@ -99,7 +97,7 @@ region_rect = Rect2(-0.831, 0.385, 2195, 941)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 z_index = 4
-position = Vector2(-710, -706)
+position = Vector2(-710, -701)
 texture = ExtResource("2_0xm2m")
 centered = false
 region_enabled = true
@@ -107,7 +105,6 @@ region_rect = Rect2(-0.831, 0.385, 2908, 2000)
 
 [node name="ParallaxForeground" type="ParallaxBackground" parent="."]
 layer = 1
-visible = false
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxForeground"]
 z_index = 5
@@ -167,7 +164,6 @@ rotation = -0.00425738
 shape = SubResource("RectangleShape2D_4c57u")
 
 [node name="stone" parent="." instance=ExtResource("8_5vw27")]
-visible = false
 position = Vector2(242, 159)
 
 [node name="peak_area" type="Area2D" parent="."]
