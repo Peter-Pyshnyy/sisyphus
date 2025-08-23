@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://ck55wnayf5oar" path="res://assets/parallax/parallax_1.png" id="3_h2yge"]
-[ext_resource type="Shader" uid="uid://cf3eqce4gq3k3" path="res://pixelization.gdshader" id="4_1bvp3"]
+[ext_resource type="Shader" path="res://pixelization.gdshader" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://do7c4mift3dv2" path="res://assets/parallax/parallax_2.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
