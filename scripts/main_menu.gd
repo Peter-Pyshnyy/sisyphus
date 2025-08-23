@@ -1,19 +1,18 @@
-extends Control
+extends Control   
+
+@onready var start_button = $VBoxContainer/Button
+@onready var exit_button = $VBoxContainer/Button2
+
+func _ready():
+	
+	start_button.pressed.connect(_on_start_pressed)
+	exit_button.pressed.connect(_on_exit_pressed)
+	
+
+func _on_start_pressed():
+	visible = false   
+	get_tree().paused = false   
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_start_pressed() -> void:
-	print("Start_pressed")
-
-
-func _on_exit_pressed() -> void:
+func _on_exit_pressed():
 	get_tree().quit()
