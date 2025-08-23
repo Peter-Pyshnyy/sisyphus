@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const BASE_SPEED = 100.0  # base speed on flat surface
+const BASE_SPEED = 150.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
 
 func _physics_process(delta: float) -> void:
