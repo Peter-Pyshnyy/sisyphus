@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://do7c4mift3dv2" path="res://assets/parallax/parallax_2.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -157,11 +157,5 @@ position = Vector2(2166, -876)
 rotation = -0.00425738
 shape = SubResource("RectangleShape2D_4c57u")
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
-layer = 30
-
-[node name="MainMenu" parent="." instance=ExtResource("8_5vw27")]
-offset_left = 98.0
-offset_top = 116.0
-offset_right = 98.0
-offset_bottom = 116.0
+[node name="stone" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(238, 142)
