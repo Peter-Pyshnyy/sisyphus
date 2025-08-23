@@ -37,11 +37,11 @@ position = Vector2(115, 138)
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
 
 [node name="Sprite2D" type="Sprite2D" parent="skala/StaticBody2D"]
+visible = false
 position = Vector2(979, -373)
 texture = ExtResource("2_0xm2m")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="skala/StaticBody2D"]
-visible = false
 polygon = PackedVector2Array(-118, 96, -20, 89, 61, 63, 84, 62, 110, 45, 135, 50, 192, 19, 234, 22, 268, 15, 308, -12, 393, -5, 448, -11, 528, -75, 619, -124, 644, -145, 709, -169, 779, -181, 841, -208, 907, -272, 936, -293, 969, -307, 997, -324, 1049, -338, 1124, -352, 1178, -390, 1219, -449, 1261, -480, 1308, -512, 1324, -522, 1404, -545, 1502, -561, 1591, -600, 1676, -681, 1740, -697, 1807, -725, 1809, -729, 1872, -799, 1935, -829, 1988, -839, 2076, -838, 2077, 95)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -80,4 +80,13 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_7mycd")
 centered = false
 region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2195, 941)
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+z_index = 4
+position = Vector2(-3, -706)
+texture = ExtResource("2_0xm2m")
+centered = false
 region_rect = Rect2(-0.831, 0.385, 2195, 941)
