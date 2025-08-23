@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=14 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://ck55wnayf5oar" path="res://assets/parallax/parallax_1.png" id="3_h2yge"]
-[ext_resource type="Shader" uid="uid://cf3eqce4gq3k3" path="res://pixelization.gdshader" id="4_1bvp3"]
+[ext_resource type="Shader" path="res://pixelization.gdshader" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://do7c4mift3dv2" path="res://assets/parallax/parallax_2.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
-[ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -14,21 +14,29 @@ shader = ExtResource("4_1bvp3")
 [sub_resource type="QuadMesh" id="QuadMesh_7mycd"]
 size = Vector2(1280, 720)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(175.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(370.214, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
+size = Vector2(35.0888, 301.121)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
+size = Vector2(40.4277, 475.032)
+
 [node name="Main" type="Node2D"]
+metadata/_edit_vertical_guides_ = [2191.0, 2741.0, -705.0]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(197, 174)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Player"]
-visible = false
-z_index = 1500
-material = SubResource("ShaderMaterial_lquwl")
-position = Vector2(-13, -18)
-mesh = SubResource("QuadMesh_7mycd")
+position = Vector2(159, 169)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2(-36.305, -23.83)
 zoom = Vector2(2.5, 2.5)
+limit_left = -670
+limit_right = 2175
 limit_smoothed = true
 position_smoothing_enabled = true
 
@@ -36,11 +44,6 @@ position_smoothing_enabled = true
 position = Vector2(115, 138)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
-
-[node name="Sprite2D" type="Sprite2D" parent="skala/StaticBody2D"]
-visible = false
-position = Vector2(979, -373)
-texture = ExtResource("2_0xm2m")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="skala/StaticBody2D"]
 polygon = PackedVector2Array(-118, 96, -20, 89, 61, 63, 84, 62, 110, 45, 135, 50, 192, 19, 234, 22, 268, 15, 308, -12, 393, -5, 448, -11, 528, -75, 619, -124, 644, -145, 709, -169, 779, -181, 841, -208, 907, -272, 936, -293, 969, -307, 997, -324, 1049, -338, 1124, -352, 1178, -390, 1219, -449, 1261, -480, 1308, -512, 1324, -522, 1404, -545, 1502, -561, 1591, -600, 1676, -681, 1740, -697, 1807, -725, 1809, -729, 1872, -799, 1935, -829, 1988, -839, 2076, -838, 2077, 95)
@@ -57,7 +60,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_h2yge")
 centered = false
 region_enabled = true
-region_rect = Rect2(-0.831, 0.385, 2195, 941)
+region_rect = Rect2(-0.831, 0.385, 2195, 2000)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.1)
@@ -87,15 +90,68 @@ region_rect = Rect2(-0.831, 0.385, 2195, 941)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 z_index = 4
-position = Vector2(-3, -706)
+position = Vector2(-710, -706)
 texture = ExtResource("2_0xm2m")
 centered = false
-region_rect = Rect2(-0.831, 0.385, 2195, 941)
+region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2908, 2000)
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
+[node name="ParallaxForeground" type="ParallaxBackground" parent="."]
+layer = 1
 
-[node name="MainMenu" parent="MenuLayer" instance=ExtResource("7_272bh")]
-offset_left = -434.0
-offset_top = -184.0
-offset_right = -434.0
-offset_bottom = -184.0
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxForeground"]
+z_index = 5
+motion_scale = Vector2(1.15, 1.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxForeground/ParallaxLayer5"]
+z_index = 159
+position = Vector2(-836, -809)
+scale = Vector2(1.09645, 1.00389)
+texture = ExtResource("7_272bh")
+centered = false
+region_enabled = true
+region_rect = Rect2(-0.831, 0.385, 2992, 2000)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxForeground"]
+z_index = 1500
+material = SubResource("ShaderMaterial_lquwl")
+position = Vector2(637.5, 356)
+scale = Vector2(1.03672, 1.04167)
+mesh = SubResource("QuadMesh_7mycd")
+
+[node name="floors" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D"]
+position = Vector2(-62.25, 242)
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="floors"]
+position = Vector2(-95, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D5"]
+position = Vector2(-140, 243)
+rotation = -0.099014
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D2"]
+position = Vector2(-405.679, 234.028)
+rotation = 0.0817902
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D3"]
+position = Vector2(-603.815, 172.484)
+rotation = -0.00425738
+shape = SubResource("RectangleShape2D_kek77")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="floors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D4"]
+position = Vector2(2166, -876)
+rotation = -0.00425738
+shape = SubResource("RectangleShape2D_4c57u")
