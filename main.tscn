@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=15 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://do7c4mift3dv2" path="res://assets/parallax/parallax_2.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -155,3 +156,6 @@ shape = SubResource("RectangleShape2D_kek77")
 position = Vector2(2166, -876)
 rotation = -0.00425738
 shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="stone" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(238, 142)

@@ -1,7 +1,10 @@
 extends CharacterBody2D
+@onready var remote_transform_2d = $RemoteTransform2D
 
-const BASE_SPEED = 150.0  # base speed on flat surface
+
+const BASE_SPEED = 180.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
+var carrying := false
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -36,3 +39,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, BASE_SPEED)
 
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area):
+	if !carrying:
+		var stone = area.get_parent()
+		remote_transform_2d.remote_path = stone.get_path()
+		carrying = true

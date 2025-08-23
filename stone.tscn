@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb2xrsdxrrpqd"]
+
+[ext_resource type="Texture2D" uid="uid://dyxpycqv7r88c" path="res://icon.svg" id="2_cxlo0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rot5g"]
+radius = 35.0
+
+[node name="stone" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("2_cxlo0")
+
+[node name="stoneArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stoneArea"]
+shape = SubResource("CircleShape2D_rot5g")
+
+[connection signal="area_entered" from="stoneArea" to="." method="_on_area_2d_area_entered"]
