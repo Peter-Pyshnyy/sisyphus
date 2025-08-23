@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2pkcs83wrhaw"
-valid=false
+uid="uid://dfexkg5huxho5"
+path="res://.godot/imported/parallax_0.png-bec4555a24c9be0a48298015a4f36d57.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/sprites/floor_test (2).png"
+source_file="res://assets/parallax/parallax_0.png"
+dest_files=["res://.godot/imported/parallax_0.png-bec4555a24c9be0a48298015a4f36d57.ctex"]
 
 [params]
 
