@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://rirv7jtc51v6"]
+[gd_scene load_steps=11 format=3 uid="uid://d0qn1h1l6jd5b"]
 
 [ext_resource type="Shader" uid="uid://k8ylgfkp53un" path="res://assets/shaders/thunder_shader.tres" id="1_mptv4"]
 [ext_resource type="Texture2D" uid="uid://dm7jry2jispvl" path="res://assets/shaders/thunder.png" id="2_bilv5"]
@@ -49,24 +49,27 @@ gravity = Vector3(0, 98, 0)
 scale_min = 0.05
 scale_max = 0.2
 scale_curve = SubResource("CurveXYZTexture_cjo4h")
-color = Color(0.717647, 1, 1, 1)
+color = Color(0.588283, 0.684176, 0.735097, 1)
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2(0.38, 0.38)
 
 [node name="Line2D" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_gut74")
-position = Vector2(-449, -272)
+position = Vector2(-966.073, -423.129)
 scale = Vector2(4.61696, 4.61696)
-points = PackedVector2Array(208, -1, 209.081, 90.8919)
+points = PackedVector2Array(209.814, -330.709, 209.081, 90.8919)
 width = 15.0
-default_color = Color(0, 0.945098, 1, 1)
+default_color = Color(0.309804, 0.392157, 0.435294, 1)
 texture_mode = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_jpwe7")
-position = Vector2(516, 150)
+position = Vector2(-1.0733, -1.12863)
+scale = Vector2(0.085, 0.085)
 amount = 15
 texture = ExtResource("3_maa40")
-lifetime = 0.15
+lifetime = 0.21
+speed_scale = 1.75
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5vx6s")

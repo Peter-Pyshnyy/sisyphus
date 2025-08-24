@@ -17,10 +17,13 @@ func _ready():
 	Global.start_game.connect(start)
 
 func start():
+	print_text("Ти так нічого і не зрозумів, Сізіфе.")
+	player.lightning()
 	Global.started = true
 	start_timer.start()
 
 func _on_start_timer_timeout():
+	$CanvasLayer/VBoxContainer2.visible = true
 	$CanvasLayer/MainMenu.visible = false
 	player.position = player_position.position
 	$Player/Camera2D2.enabled = false
@@ -56,6 +59,10 @@ func _on_text_anim_timer_timeout():
 		text_anim.play_backwards("text_animation")
 
 func _on_height_timer_timeout():
+	if !Global.hint_shown:
+		$CanvasLayer/Control.play("controlls")
+		Global.hint_shown = true
+	
 	if player.carrying:
 		if (player.position.y > (last_height + 15.0)):
 			print(player.position.y)
@@ -70,7 +77,7 @@ func print_text(text):
 	text_anim_timer.start()
 
 func cheat_no_stone_peak():
-	print_text("Ти так нічого і не зрозумів, Сізіфе.")
+	print_text("Не намагайся нас обдурити, Сізіфе!")
 	lightning_reset()
 
 func cheat_went_left():
@@ -78,7 +85,7 @@ func cheat_went_left():
 	lightning_reset()
 
 func cheat_waited():
-	print_text("Не намагайся нас обдурити, Сізіфе!")
+	print_text("Це тобі не допоможе, Сізіфе.")
 	lightning_reset()
 
 func cheat_leave():
@@ -90,18 +97,16 @@ func cheat_stay_down():
 	lightning_reset()
 
 func lightning_reset():
-	print("lightning")
 	player.can_move = false
 	player.start_idle_anim()
-	reset()
+	player.lightning()
+	start_timer.start()
+	peak_timer.stop()
 
 func _on_button_2_pressed():
 	$CanvasLayer/VBoxContainer.visible = false
 	cheat_leave()
 
-func reset():
-	start()
-	peak_timer.stop()
 
 func praise():
 	Global.correct_runs += 1
@@ -116,6 +121,7 @@ func praise():
 		player.can_move = false
 		player.start_idle_anim()
 		$CanvasLayer/ButtonExit.disabled = false
+		$CanvasLayer/ButtonExit.visible = true
 		$CanvasLayer/ExitAnim.play("exit_anim")
 	print_text(praises[Global.correct_runs - 1])
 

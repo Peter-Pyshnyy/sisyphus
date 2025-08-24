@@ -110,3 +110,11 @@ func unpause():
 
 func _on_button_pressed():
 	unpause();
+
+func lightning():
+	$LightningTimer.start()
+	$Node2D.visible = true
+
+
+func _on_lightning_timer_timeout():
+	$Node2D.visible = false
