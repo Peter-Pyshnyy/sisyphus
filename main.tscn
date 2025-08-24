@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=36 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dk6txbmoaxog" path="res://game_state.gd" id="1_kek77"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="9_kek77"]
 [ext_resource type="FontFile" uid="uid://4mqn47yv5vvy" path="res://Pangolin-Regular.ttf" id="11_efxa6"]
+[ext_resource type="FontFile" uid="uid://br5petpouymi7" path="res://GreatVibes-Regular.ttf" id="12_dg77c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -35,6 +36,18 @@ size = Vector2(82, 199)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
 size = Vector2(131.25, 155)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg77c"]
+bg_color = Color(0.952941, 0.933333, 0.909804, 0.803922)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycdy4"]
+bg_color = Color(0.929412, 0.905882, 0.870588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w48qg"]
+bg_color = Color(0.930524, 0.904246, 0.870169, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_efxa6"]
+bg_color = Color(0.952941, 0.933333, 0.909804, 1)
 
 [sub_resource type="Animation" id="Animation_efxa6"]
 resource_name = "text_animation"
@@ -66,10 +79,63 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_ycdy4"]
+resource_name = "new_animation"
+
+[sub_resource type="Animation" id="Animation_w48qg"]
+resource_name = "exit_text"
+length = 2.5
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ycdy4"]
 _data = {
 &"RESET": SubResource("Animation_dg77c"),
+&"exit_text": SubResource("Animation_w48qg"),
+&"new_animation": SubResource("Animation_ycdy4"),
 &"text_animation": SubResource("Animation_efxa6")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ycdy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w48qg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
+bg_color = Color(0, 0, 0, 0.00392157)
+
+[sub_resource type="Animation" id="Animation_vivmo"]
+resource_name = "exit_anim"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonExit:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.36667, 2.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2cqfq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonExit:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yaehf"]
+_data = {
+&"RESET": SubResource("Animation_2cqfq"),
+&"exit_anim": SubResource("Animation_vivmo")
 }
 
 [node name="Main" type="Node2D"]
@@ -222,12 +288,13 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="peak_area"]
-position = Vector2(2127, -769)
+position = Vector2(2165, -747)
 shape = SubResource("RectangleShape2D_efxa6")
 disabled = true
 
 [node name="PeakTimer" type="Timer" parent="peak_area"]
 wait_time = 10.0
+one_shot = true
 
 [node name="left_area" type="Area2D" parent="."]
 collision_layer = 0
@@ -237,6 +304,9 @@ collision_mask = 2
 position = Vector2(-557.625, 160)
 shape = SubResource("RectangleShape2D_dg77c")
 
+[node name="player_position" type="Node2D" parent="."]
+position = Vector2(83, 219)
+
 [node name="stone_position" type="Node2D" parent="."]
 position = Vector2(242, 159)
 
@@ -244,17 +314,66 @@ position = Vector2(242, 159)
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("9_kek77")]
 
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.26
+anchor_right = 0.65
+anchor_bottom = 0.579
+offset_left = -3.05176e-05
+offset_top = -0.200012
+offset_right = -6.10352e-05
+offset_bottom = 0.119965
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_focus_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_fonts/font = ExtResource("11_efxa6")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/focus = SubResource("StyleBoxFlat_dg77c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ycdy4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w48qg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_efxa6")
+text = "Продовжити"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 43.32)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_focus_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0901961, 0.121569, 1)
+theme_override_fonts/font = ExtResource("11_efxa6")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/focus = SubResource("StyleBoxFlat_dg77c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ycdy4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w48qg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_efxa6")
+text = "Залишити гру"
+
 [node name="Label" type="Label" parent="CanvasLayer"]
 z_index = 2000
 anchors_preset = -1
-anchor_right = 0.139
-anchor_bottom = 0.032
-offset_right = -137.92
-offset_bottom = -0.0400009
+anchor_right = 0.379
+anchor_bottom = 0.354
+offset_right = 1118.88
+offset_bottom = 0.119995
 theme_override_colors/font_color = Color(0.133333, 0.184314, 0.239216, 0.733333)
 theme_override_fonts/font = ExtResource("11_efxa6")
 theme_override_font_sizes/font_size = 35
-text = "Ти так нічого і не зрозумів"
+text = "Сізіфа так, що він щасливий, бо зумів залишити ілюзії 
+про ціль і сенс, прийнявши абсурд 1як власну свободу."
+max_lines_visible = 5
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -267,11 +386,60 @@ libraries = {
 wait_time = 5.0
 one_shot = true
 
+[node name="ButtonExit" type="Button" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -111.0
+offset_right = 100.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_disabled_color = Color(0.0784314, 0.0941176, 0.137255, 0.721569)
+theme_override_colors/font_hover_color = Color(0.122644, 0.142069, 0.200454, 0.901961)
+theme_override_colors/font_color = Color(0.0784314, 0.0941176, 0.137255, 0.721569)
+theme_override_colors/font_focus_color = Color(0.0784314, 0.0941176, 0.137255, 0.721569)
+theme_override_colors/font_pressed_color = Color(0.0784314, 0.0941176, 0.137255, 0.721569)
+theme_override_fonts/font = ExtResource("12_dg77c")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ycdy4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_w48qg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vivmo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vivmo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vivmo")
+disabled = true
+text = "Вихід
+"
+
+[node name="ExitAnim" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_yaehf")
+}
+
 [node name="CheatTimer" type="Timer" parent="."]
 wait_time = 15.0
+one_shot = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HeightTimer" type="Timer" parent="."]
+wait_time = 6.0
 
 [connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
 [connection signal="timeout" from="peak_area/PeakTimer" to="." method="_on_peak_timer_timeout"]
 [connection signal="area_entered" from="left_area" to="." method="_on_left_area_area_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Button" to="Player" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="timeout" from="CanvasLayer/TextAnimTimer" to="." method="_on_text_anim_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/ButtonExit" to="." method="_on_button_exit_pressed"]
 [connection signal="timeout" from="CheatTimer" to="." method="_on_cheat_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="HeightTimer" to="." method="_on_height_timer_timeout"]

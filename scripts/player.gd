@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var remote_transform_2d = $RemoteTransform2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var cheat_timer = $"../CheatTimer"
+@onready var height_timer = $"../HeightTimer"
+
 
 const BASE_SPEED = 180.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
@@ -13,9 +15,18 @@ var idle_animation := "idle"
 var can_move = false
 
 func _physics_process(delta: float) -> void:
-	if !can_move:
+	if !Global.started:
 		return
 		
+	if Input.is_action_just_pressed("ui_cancel"):
+		if can_move:
+			pause()
+		else:
+			unpause()
+		
+	if !can_move:
+		return
+	
 	# Add gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -23,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	# Jump
 	if Input.is_action_just_pressed("ui_accept") and remote_transform_2d.remote_path:
 		put_down_stone()
-
+	
 	# Get input (left/right)
 	var direction := Input.get_axis("ui_left", "ui_right")
 	var move_speed = BASE_SPEED * speed_multiplier
@@ -59,6 +70,7 @@ func _physics_process(delta: float) -> void:
 func put_down_stone():
 	move_animation = "walk"
 	idle_animation = "idle"
+	height_timer.stop()
 	var stone = get_node(remote_transform_2d.remote_path)
 	remote_transform_2d.remote_path = ""
 	stone.position += Vector2(0.0, 40.0)
@@ -69,6 +81,7 @@ func _on_area_2d_area_entered(area):
 	if !carrying:
 		move_animation = "carry"
 		idle_animation = "carry_idle"
+		height_timer.start()
 		speed_multiplier = 0.45
 		var stone = area.get_parent()
 		remote_transform_2d.remote_path = stone.get_path()
@@ -79,3 +92,21 @@ func _on_area_2d_area_entered(area):
 func _on_area_2d_area_exited(area):
 	if carrying:
 		carrying = !carrying
+
+func start_idle_anim():
+	sprite.play(idle_animation)
+
+func pause():
+	$"../CanvasLayer/VBoxContainer".visible = true
+	can_move = false
+	$"../CheatTimer".paused = true
+	$"../peak_area/PeakTimer".paused = true
+
+func unpause():
+	can_move = true
+	$"../CanvasLayer/VBoxContainer".visible = false
+	$"../CheatTimer".paused = false
+	$"../peak_area/PeakTimer".paused = false
+
+func _on_button_pressed():
+	unpause();
