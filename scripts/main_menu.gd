@@ -2,6 +2,7 @@ extends Control
 
 @onready var start_button = $VBoxContainer/Button
 @onready var exit_button = $VBoxContainer/Button2
+@onready var animation_player = $AnimationPlayer
 
 func _ready():
 	
@@ -10,7 +11,10 @@ func _ready():
 
 
 func _on_start_pressed():
-	visible = false   
+	start_button.disabled = true
+	exit_button.disabled = true
+	animation_player.play("fade_out")
+	Global.start_game.emit()  
 	get_tree().paused = false   
 
 
