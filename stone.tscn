@@ -3,13 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://bydgrdygfenjr" path="res://assets/sprites/stone.png" id="1_6s6ed"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rot5g"]
-radius = 35.0
+radius = 48.0
 
 [node name="stone" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(6, -9)
-scale = Vector2(1.57447, 1.67347)
+position = Vector2(1, -1)
+scale = Vector2(0.978723, 0.950365)
 texture = ExtResource("1_6s6ed")
 
 [node name="stoneArea" type="Area2D" parent="."]

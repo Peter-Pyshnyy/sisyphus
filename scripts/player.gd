@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var remote_transform_2d = $RemoteTransform2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D   # ссылка на спрайт
 
-const BASE_SPEED = 200.0  # base speed on flat surface
+const BASE_SPEED = 180.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
 var carrying := false
 var speed_multiplier := 1.0

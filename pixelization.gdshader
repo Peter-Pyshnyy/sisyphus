@@ -1,7 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
 
-const vec2 target_resolution = vec2(256.0, 144.0);
+const vec2 target_resolution = vec2(512.0, 288.0);
 const float colors_per_channel = 33.0;
 
 uniform sampler2D screen_texture: hint_screen_texture, filter_nearest;

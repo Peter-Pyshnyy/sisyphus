@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://de8jpoldt6s1n"]
 
 [ext_resource type="Script" uid="uid://c13w73y8dmjfp" path="res://scripts/player.gd" id="1_4ngp6"]
-[ext_resource type="Texture2D" uid="uid://dbd3jg6gk80th" path="res://assets/sprites/char (2).png" id="2_4ngp6"]
+[ext_resource type="Texture2D" uid="uid://dbd3jg6gk80th" path="res://assets/sprites/char.png" id="2_4ngp6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31yn0"]
 atlas = ExtResource("2_4ngp6")
@@ -146,9 +146,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jdwh2"]
-radius = 6.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ngp6"]
+radius = 15.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
@@ -156,14 +157,14 @@ collision_mask = 5
 script = ExtResource("1_4ngp6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(4.5, -14.5)
-scale = Vector2(0.694445, 0.777778)
+position = Vector2(8.49999, -17.625)
+scale = Vector2(0.916667, 0.916667)
 sprite_frames = SubResource("SpriteFrames_31yji")
 animation = &"carry_idle"
-frame_progress = 0.103407
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(7, -10)
 shape = SubResource("CircleShape2D_jdwh2")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -171,11 +172,11 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, -9)
+position = Vector2(7, -13)
 shape = SubResource("CircleShape2D_4ngp6")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-position = Vector2(11, -51)
+position = Vector2(11, -72)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
