@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=18 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" path="res://game_state.gd" id="1_kek77"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="9_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -177,5 +178,9 @@ shape = SubResource("RectangleShape2D_efxa6")
 
 [node name="stone_position" type="Node2D" parent="."]
 position = Vector2(242, 159)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("9_kek77")]
 
 [connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
