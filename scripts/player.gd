@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 @onready var remote_transform_2d = $RemoteTransform2D
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D   # ссылка на спрайт
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var cheat_timer = $"../CheatTimer"
 
 const BASE_SPEED = 180.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
@@ -9,8 +10,12 @@ var carrying := false
 var speed_multiplier := 1.0
 var move_animation := "walk"
 var idle_animation := "idle"
+var can_move = false
 
 func _physics_process(delta: float) -> void:
+	if !can_move:
+		return
+		
 	# Add gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -39,16 +44,13 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction * move_speed
 
-		# включаем анимацию ходьбы
 		if sprite.animation != move_animation:
 			sprite.play(move_animation)
 
-		# разворот спрайта
 		sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, BASE_SPEED)
 
-		# включаем idle
 		if sprite.animation != idle_animation:
 			sprite.play(idle_animation)
 
@@ -59,8 +61,9 @@ func put_down_stone():
 	idle_animation = "idle"
 	var stone = get_node(remote_transform_2d.remote_path)
 	remote_transform_2d.remote_path = ""
-	stone.position += Vector2(0.0, 20.0)
+	stone.position += Vector2(0.0, 40.0)
 	speed_multiplier = 1.0
+	cheat_timer.start(25.0)
 
 func _on_area_2d_area_entered(area):
 	if !carrying:
@@ -70,6 +73,7 @@ func _on_area_2d_area_entered(area):
 		var stone = area.get_parent()
 		remote_transform_2d.remote_path = stone.get_path()
 		carrying = true
+		cheat_timer.stop()
 
 
 func _on_area_2d_area_exited(area):

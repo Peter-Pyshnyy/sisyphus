@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=23 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dk6txbmoaxog" path="res://game_state.gd" id="1_kek77"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="9_kek77"]
+[ext_resource type="FontFile" uid="uid://4mqn47yv5vvy" path="res://Pangolin-Regular.ttf" id="11_efxa6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -32,20 +33,64 @@ size = Vector2(40.4277, 475.032)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efxa6"]
 size = Vector2(82, 199)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
+size = Vector2(131.25, 155)
+
+[sub_resource type="Animation" id="Animation_efxa6"]
+resource_name = "text_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dg77c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ycdy4"]
+_data = {
+&"RESET": SubResource("Animation_dg77c"),
+&"text_animation": SubResource("Animation_efxa6")
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_kek77")
 metadata/_edit_vertical_guides_ = [2191.0, 2741.0, -705.0]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(159, 169)
+position = Vector2(2093, -700.375)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2(-36.305, -23.83)
+enabled = false
 zoom = Vector2(2.5, 2.5)
 limit_left = -670
 limit_right = 2175
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+offset = Vector2(-211.47, -23.83)
+zoom = Vector2(2.5, 2.5)
 
 [node name="skala" type="Node2D" parent="."]
 position = Vector2(115, 138)
@@ -53,7 +98,6 @@ position = Vector2(115, 138)
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="skala/StaticBody2D"]
-visible = false
 polygon = PackedVector2Array(-118, 96, -17, 91, 66, 64, 84, 62, 119, 47, 141, 50, 199, 19, 234, 22, 271, 16, 318, -11, 393, -5, 458, -11, 539, -77, 631, -126, 653, -144, 718, -169, 797, -183, 870, -213, 917, -257, 938, -277, 975, -302, 1008, -325, 1046, -327, 1138, -349, 1183, -390, 1242, -442, 1284, -479, 1351, -507, 1417, -546, 1513, -562, 1619, -609, 1691, -675, 1753, -699, 1810, -721, 1904, -801, 1947, -830, 1990, -837, 2076, -838, 2077, 95)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -150,10 +194,15 @@ position = Vector2(-405.679, 234.028)
 rotation = 0.0817902
 shape = SubResource("RectangleShape2D_5vw27")
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="floors/StaticBody2D2"]
+position = Vector2(-768, 226)
+rotation = -0.0328626
+shape = SubResource("RectangleShape2D_5vw27")
+
 [node name="StaticBody2D3" type="StaticBody2D" parent="floors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floors/StaticBody2D3"]
-position = Vector2(-603.815, 172.484)
+position = Vector2(-694, 172.484)
 rotation = -0.00425738
 shape = SubResource("RectangleShape2D_kek77")
 
@@ -173,8 +222,20 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="peak_area"]
-position = Vector2(2144, -773.5)
+position = Vector2(2127, -769)
 shape = SubResource("RectangleShape2D_efxa6")
+disabled = true
+
+[node name="PeakTimer" type="Timer" parent="peak_area"]
+wait_time = 10.0
+
+[node name="left_area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_area"]
+position = Vector2(-557.625, 160)
+shape = SubResource("RectangleShape2D_dg77c")
 
 [node name="stone_position" type="Node2D" parent="."]
 position = Vector2(242, 159)
@@ -183,4 +244,34 @@ position = Vector2(242, 159)
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("9_kek77")]
 
+[node name="Label" type="Label" parent="CanvasLayer"]
+z_index = 2000
+anchors_preset = -1
+anchor_right = 0.139
+anchor_bottom = 0.032
+offset_right = -137.92
+offset_bottom = -0.0400009
+theme_override_colors/font_color = Color(0.133333, 0.184314, 0.239216, 0.733333)
+theme_override_fonts/font = ExtResource("11_efxa6")
+theme_override_font_sizes/font_size = 35
+text = "Ти так нічого і не зрозумів"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="TextAnim" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_ycdy4")
+}
+
+[node name="TextAnimTimer" type="Timer" parent="CanvasLayer"]
+wait_time = 5.0
+one_shot = true
+
+[node name="CheatTimer" type="Timer" parent="."]
+wait_time = 15.0
+
 [connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
+[connection signal="timeout" from="peak_area/PeakTimer" to="." method="_on_peak_timer_timeout"]
+[connection signal="area_entered" from="left_area" to="." method="_on_left_area_area_entered"]
+[connection signal="timeout" from="CanvasLayer/TextAnimTimer" to="." method="_on_text_anim_timer_timeout"]
+[connection signal="timeout" from="CheatTimer" to="." method="_on_cheat_timer_timeout"]
