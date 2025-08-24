@@ -178,8 +178,8 @@ shape = SubResource("RectangleShape2D_efxa6")
 [node name="stone_position" type="Node2D" parent="."]
 position = Vector2(242, 159)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="MenuLayer" type="CanvasLayer" parent="."]
 
-[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("9_kek77")]
+[node name="MainMenu" parent="MenuLayer" instance=ExtResource("9_kek77")]
 
 [connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
