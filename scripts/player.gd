@@ -7,6 +7,8 @@ const BASE_SPEED = 200.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
 var carrying := false
 var speed_multiplier := 1.0
+var move_animation := "walk"
+var idle_animation := "idle"
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -38,8 +40,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * move_speed
 
 		# включаем анимацию ходьбы
-		if sprite.animation != "walk":
-			sprite.play("walk")
+		if sprite.animation != move_animation:
+			sprite.play(move_animation)
 
 		# разворот спрайта
 		sprite.flip_h = direction < 0
@@ -47,12 +49,14 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, BASE_SPEED)
 
 		# включаем idle
-		if sprite.animation != "idle":
-			sprite.play("idle")
+		if sprite.animation != idle_animation:
+			sprite.play(idle_animation)
 
 	move_and_slide()
 
 func put_down_stone():
+	move_animation = "walk"
+	idle_animation = "idle"
 	var stone = get_node(remote_transform_2d.remote_path)
 	remote_transform_2d.remote_path = ""
 	stone.position += Vector2(0.0, 20.0)
@@ -60,6 +64,8 @@ func put_down_stone():
 
 func _on_area_2d_area_entered(area):
 	if !carrying:
+		move_animation = "carry"
+		idle_animation = "carry_idle"
 		speed_multiplier = 0.45
 		var stone = area.get_parent()
 		remote_transform_2d.remote_path = stone.get_path()
