@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://rirv7jtc51v6"]
+
+[ext_resource type="Shader" uid="uid://k8ylgfkp53un" path="res://assets/shaders/thunder_shader.tres" id="1_mptv4"]
+[ext_resource type="Texture2D" uid="uid://dm7jry2jispvl" path="res://assets/shaders/thunder.png" id="2_bilv5"]
+[ext_resource type="Texture2D" uid="uid://cvuct4lsweang" path="res://assets/sprites/T_basic1_vfx.PNG" id="3_maa40"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gut74"]
+shader = ExtResource("1_mptv4")
+shader_parameter/Vanishing_Value = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("2_bilv5")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jpwe7"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_hrpol"]
+_data = [Vector2(0, 0.514104), 0.0, 0.0, 0, 0, Vector2(1, 0.0832157), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jvdsx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_70i0w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_cjo4h"]
+curve_x = SubResource("Curve_hrpol")
+curve_y = SubResource("Curve_jvdsx")
+curve_z = SubResource("Curve_70i0w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5vx6s"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -500.0
+initial_velocity_max = -400.0
+radial_velocity_min = 500.0
+radial_velocity_max = 700.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.05
+scale_max = 0.2
+scale_curve = SubResource("CurveXYZTexture_cjo4h")
+color = Color(0.717647, 1, 1, 1)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_gut74")
+position = Vector2(-449, -272)
+scale = Vector2(4.61696, 4.61696)
+points = PackedVector2Array(208, -1, 209.081, 90.8919)
+width = 15.0
+default_color = Color(0, 0.945098, 1, 1)
+texture_mode = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_jpwe7")
+position = Vector2(516, 150)
+amount = 15
+texture = ExtResource("3_maa40")
+lifetime = 0.15
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_5vx6s")
