@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb2xrsdxrrpqd"]
 
-[ext_resource type="Texture2D" uid="uid://dyxpycqv7r88c" path="res://icon.svg" id="2_cxlo0"]
+[ext_resource type="Texture2D" uid="uid://bydgrdygfenjr" path="res://assets/sprites/stone.png" id="1_6s6ed"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rot5g"]
 radius = 35.0
@@ -8,8 +8,9 @@ radius = 35.0
 [node name="stone" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.43, 0.43)
-texture = ExtResource("2_cxlo0")
+position = Vector2(6, -9)
+scale = Vector2(1.57447, 1.67347)
+texture = ExtResource("1_6s6ed")
 
 [node name="stoneArea" type="Area2D" parent="."]
 collision_layer = 4
