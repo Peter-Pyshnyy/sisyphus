@@ -3,9 +3,10 @@ extends CharacterBody2D
 @onready var remote_transform_2d = $RemoteTransform2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D   # ссылка на спрайт
 
-const BASE_SPEED = 180.0  # base speed on flat surface
+const BASE_SPEED = 200.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
 var carrying := false
+var speed_multiplier := 1.0
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -13,12 +14,12 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Jump
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_pressed("ui_accept") and remote_transform_2d.remote_path:
+		put_down_stone()
 
 	# Get input (left/right)
 	var direction := Input.get_axis("ui_left", "ui_right")
-	var move_speed = BASE_SPEED
+	var move_speed = BASE_SPEED * speed_multiplier
 
 	# Adjust speed smoothly depending on slope
 	if is_on_floor():
@@ -51,9 +52,20 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func put_down_stone():
+	var stone = get_node(remote_transform_2d.remote_path)
+	remote_transform_2d.remote_path = ""
+	stone.position += Vector2(0.0, 20.0)
+	speed_multiplier = 1.0
 
 func _on_area_2d_area_entered(area):
 	if !carrying:
+		speed_multiplier = 0.45
 		var stone = area.get_parent()
 		remote_transform_2d.remote_path = stone.get_path()
 		carrying = true
+
+
+func _on_area_2d_area_exited(area):
+	if carrying:
+		carrying = !carrying

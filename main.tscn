@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=17 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dk6txbmoaxog" path="res://game_state.gd" id="1_kek77"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://ck55wnayf5oar" path="res://assets/parallax/parallax_1.png" id="3_h2yge"]
 [ext_resource type="Shader" uid="uid://cf3eqce4gq3k3" path="res://pixelization.gdshader" id="4_1bvp3"]
@@ -8,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bjs43ymbemw1x" path="res://assets/parallax/parallax_3.png" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
-[ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="9_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -28,7 +28,11 @@ size = Vector2(35.0888, 301.121)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
 size = Vector2(40.4277, 475.032)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efxa6"]
+size = Vector2(82, 199)
+
 [node name="Main" type="Node2D"]
+script = ExtResource("1_kek77")
 metadata/_edit_vertical_guides_ = [2191.0, 2741.0, -705.0]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
@@ -48,7 +52,8 @@ position = Vector2(115, 138)
 [node name="StaticBody2D" type="StaticBody2D" parent="skala"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="skala/StaticBody2D"]
-polygon = PackedVector2Array(-118, 96, -20, 89, 61, 63, 84, 62, 110, 45, 135, 50, 192, 19, 234, 22, 268, 15, 308, -12, 393, -5, 448, -11, 528, -75, 619, -124, 644, -145, 709, -169, 779, -181, 841, -208, 907, -272, 936, -293, 969, -307, 997, -324, 1049, -338, 1124, -352, 1178, -390, 1219, -449, 1261, -480, 1308, -512, 1324, -522, 1404, -545, 1502, -561, 1591, -600, 1676, -681, 1740, -697, 1807, -725, 1809, -729, 1872, -799, 1935, -829, 1988, -839, 2076, -838, 2077, 95)
+visible = false
+polygon = PackedVector2Array(-118, 96, -17, 91, 66, 64, 84, 62, 119, 47, 141, 50, 199, 19, 234, 22, 271, 16, 318, -11, 393, -5, 458, -11, 539, -77, 631, -126, 653, -144, 718, -169, 797, -183, 870, -213, 917, -257, 938, -277, 975, -302, 1008, -325, 1046, -327, 1138, -349, 1183, -390, 1242, -442, 1284, -479, 1351, -507, 1417, -546, 1513, -562, 1619, -609, 1691, -675, 1753, -699, 1810, -721, 1904, -801, 1947, -830, 1990, -837, 2076, -838, 2077, 95)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -92,7 +97,7 @@ region_rect = Rect2(-0.831, 0.385, 2195, 941)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 z_index = 4
-position = Vector2(-710, -706)
+position = Vector2(-710, -701)
 texture = ExtResource("2_0xm2m")
 centered = false
 region_enabled = true
@@ -115,7 +120,6 @@ region_enabled = true
 region_rect = Rect2(-0.831, 0.385, 2992, 2000)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxForeground"]
-visible = false
 z_index = 1500
 material = SubResource("ShaderMaterial_lquwl")
 position = Vector2(637.5, 356)
@@ -160,13 +164,17 @@ rotation = -0.00425738
 shape = SubResource("RectangleShape2D_4c57u")
 
 [node name="stone" parent="." instance=ExtResource("8_5vw27")]
-position = Vector2(238, 142)
+position = Vector2(242, 159)
 
-[node name="MenuLayer" type="CanvasLayer" parent="."]
+[node name="peak_area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
-[node name="MainMenu" parent="MenuLayer" instance=ExtResource("9_kek77")]
-layout_direction = 1
-offset_left = -452.0
-offset_top = -186.0
-offset_right = -452.0
-offset_bottom = -186.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="peak_area"]
+position = Vector2(2144, -773.5)
+shape = SubResource("RectangleShape2D_efxa6")
+
+[node name="stone_position" type="Node2D" parent="."]
+position = Vector2(242, 159)
+
+[connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
