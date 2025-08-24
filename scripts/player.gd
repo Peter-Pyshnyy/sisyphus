@@ -1,6 +1,7 @@
 extends CharacterBody2D
-@onready var remote_transform_2d = $RemoteTransform2D
 
+@onready var remote_transform_2d = $RemoteTransform2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D   # ссылка на спрайт
 
 const BASE_SPEED = 180.0  # base speed on flat surface
 const JUMP_VELOCITY = -400.0
@@ -28,15 +29,25 @@ func _physics_process(delta: float) -> void:
 			var slope_angle = rad_to_deg(acos(normal.dot(Vector2.UP)))
 
 			# Smooth speed adjustment:
-			# flat road: slower, steep slope: slowest, moderate slope: normal
 			var slope_factor = clamp(1.0 - slope_angle / 90.0, 0.2, 0.8)
 			move_speed *= slope_factor
 
 	# Movement
 	if direction:
 		velocity.x = direction * move_speed
+
+		# включаем анимацию ходьбы
+		if sprite.animation != "walk":
+			sprite.play("walk")
+
+		# разворот спрайта
+		sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, BASE_SPEED)
+
+		# включаем idle
+		if sprite.animation != "idle":
+			sprite.play("idle")
 
 	move_and_slide()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=16 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dfexkg5huxho5" path="res://assets/parallax/parallax_0.png" id="2_0xm2m"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dvkiog5eujnrx" path="res://assets/parallax/parallax_-1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://bb2xrsdxrrpqd" path="res://stone.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://6j1pb7wp3oab" path="res://main_menu.tscn" id="9_kek77"]
-[ext_resource type="PackedScene" uid="uid://3m5l7t64p86u" path="res://assets/sprites/text.tscn" id="10_4c57u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -116,6 +115,7 @@ region_enabled = true
 region_rect = Rect2(-0.831, 0.385, 2992, 2000)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxForeground"]
+visible = false
 z_index = 1500
 material = SubResource("ShaderMaterial_lquwl")
 position = Vector2(637.5, 356)
@@ -170,6 +170,3 @@ offset_left = -452.0
 offset_top = -186.0
 offset_right = -452.0
 offset_bottom = -186.0
-
-[node name="Node2D" parent="." instance=ExtResource("10_4c57u")]
-position = Vector2(248, 89)
