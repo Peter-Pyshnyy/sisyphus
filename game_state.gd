@@ -9,6 +9,9 @@ extends Node2D
 @onready var cheat_timer = $CheatTimer
 @onready var start_timer = $StartTimer
 @onready var player_position = $player_position
+@onready var thunder_sound = $Thunder_sound
+@onready var end_sound = $End_sound
+
 var finished = false
 var last_height = 100000.0
 var praises = ["Ти на правильному шляху.", "Схоже, ти зрозумів, Сізіфе.", "Альбер Камю, 1942: \n \"Сізіфа потрібно бачити щасливим, адже він зумів залишити ілюзії \n про ціль і сенс, прийнявши абсурд як власну свободу.\""]
@@ -19,6 +22,7 @@ func _ready():
 func start():
 	print_text("Ти так нічого і не зрозумів, Сізіфе.")
 	player.lightning()
+	thunder_sound.play()
 	Global.started = true
 	start_timer.start()
 
@@ -97,9 +101,12 @@ func cheat_stay_down():
 	lightning_reset()
 
 func lightning_reset():
+	Global.correct_runs = 0
+	end_sound.stop()
 	player.can_move = false
 	player.start_idle_anim()
 	player.lightning()
+	thunder_sound.play()
 	start_timer.start()
 	peak_timer.stop()
 
@@ -110,6 +117,12 @@ func _on_button_2_pressed():
 
 func praise():
 	Global.correct_runs += 1
+	
+	if Global.correct_runs == 1:
+		$Correct1_sound.play()
+	
+	if Global.correct_runs == 2:
+		end_sound.play()
 	
 	if Global.correct_runs == 3:
 		finished = true

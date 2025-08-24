@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b0milw6bon42a"]
+[gd_scene load_steps=43 format=3 uid="uid://b0milw6bon42a"]
 
 [ext_resource type="PackedScene" uid="uid://de8jpoldt6s1n" path="res://assets/sprites/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dk6txbmoaxog" path="res://game_state.gd" id="1_kek77"]
@@ -13,6 +13,9 @@
 [ext_resource type="FontFile" uid="uid://4mqn47yv5vvy" path="res://Pangolin-Regular.ttf" id="11_efxa6"]
 [ext_resource type="FontFile" uid="uid://br5petpouymi7" path="res://GreatVibes-Regular.ttf" id="12_dg77c"]
 [ext_resource type="AudioStream" uid="uid://bfrobif0ir5jp" path="res://assets/sounds/wind.wav" id="13_ycdy4"]
+[ext_resource type="AudioStream" uid="uid://da58plhxdtrb1" path="res://assets/sounds/thunder.wav" id="14_w48qg"]
+[ext_resource type="AudioStream" uid="uid://ciym6m6qftexe" path="res://assets/sounds/correct1.wav" id="15_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://mrf8gokeq1xb" path="res://assets/sounds/end.wav" id="15_vivmo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
 shader = ExtResource("4_1bvp3")
@@ -326,7 +329,7 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="peak_area"]
-position = Vector2(2165, -747)
+position = Vector2(2163, -767)
 shape = SubResource("RectangleShape2D_efxa6")
 disabled = true
 
@@ -404,8 +407,10 @@ z_index = 2000
 anchors_preset = -1
 anchor_right = 0.379
 anchor_bottom = 0.354
-offset_right = 1118.88
-offset_bottom = 0.119995
+offset_left = 20.0
+offset_top = 13.0
+offset_right = 1138.88
+offset_bottom = 13.12
 theme_override_colors/font_color = Color(0.133333, 0.184314, 0.239216, 0.733333)
 theme_override_fonts/font = ExtResource("11_efxa6")
 theme_override_font_sizes/font_size = 35
@@ -511,10 +516,21 @@ one_shot = true
 [node name="HeightTimer" type="Timer" parent="."]
 wait_time = 6.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="BG_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_ycdy4")
-volume_db = 15.848
+volume_db = 2.971
 autoplay = true
+
+[node name="Thunder_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_w48qg")
+volume_db = 2.971
+
+[node name="Correct1_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_2cqfq")
+
+[node name="End_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_vivmo")
+volume_db = 2.971
 
 [connection signal="area_entered" from="peak_area" to="." method="_on_peak_area_area_entered"]
 [connection signal="timeout" from="peak_area/PeakTimer" to="." method="_on_peak_timer_timeout"]

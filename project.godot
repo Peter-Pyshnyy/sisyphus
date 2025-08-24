@@ -18,12 +18,13 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/Global.gd"
+BgSound="res://bg_sound.tscn"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=2
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [rendering]
